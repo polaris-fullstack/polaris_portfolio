@@ -1,3 +1,12 @@
+
+## Version 2  
+
+> ![image](https://github.com/user-attachments/assets/ce36e52b-96c2-4b72-a1e8-1e68b9767f6c)  
+>  
+> 🔗 [View on GitHub](https://github.com/seraprogrammer/portfolio-v2)
+
+
+
 # Portfolio Website
 <div align="center">
   <pre>
