@@ -88,7 +88,7 @@ export default function Contact() {
 
   return (
     <main
-      className="pt-20 lg:pt-[0rem] bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90
+      className="pt-20 lg:pt-[0rem] bg-[#04081A]
  text-white min-h-screen"
     >
       <section className="hero min-h-screen flex items-center relative px-4 sm:px-6 lg:px-8">

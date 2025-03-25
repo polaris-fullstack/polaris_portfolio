@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import IconCloudDemo from "./globe";
+import IconCloudDemo from "@/components/globe";
 import { Code2, Paintbrush, Database, Layout, Cpu, Cloud } from "lucide-react";
 import {
   FaReact,
@@ -213,11 +213,11 @@ const SkillsSection = () => {
   ];
 
   return (
-    <main
-      className="pt-15 lg:pt-0 bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90
- text-white min-h-screen"
-    >
-      <section className="container mx-auto px-4 py-11">
+    <main className="pt-15 lg:pt-0 text-white min-h-screen bg-[#04081A] relative">
+      {/* Grid Background */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none"></div>
+
+      <section className="container mx-auto px-4 py-11 relative z-10">
         <div className="flex justify-center items-center ">
           <IconCloudDemo />
         </div>
@@ -244,6 +244,19 @@ const SkillsSection = () => {
         }
         .animate-shimmer {
           animation: shimmer 2s infinite;
+        }
+        .bg-grid-pattern {
+          background-image: linear-gradient(
+              to right,
+              rgba(100, 100, 255, 0.1) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              to bottom,
+              rgba(100, 100, 255, 0.1) 1px,
+              transparent 1px
+            );
+          background-size: 30px 30px;
         }
       `}</style>
     </main>

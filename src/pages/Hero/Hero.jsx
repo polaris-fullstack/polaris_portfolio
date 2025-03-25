@@ -1,47 +1,40 @@
 import React, { useState, useEffect } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
-import "../assets/css/tomorrow.css";
-import Meteors from "./ui/meteors";
-import PortfolioPage from "./PortfolioPage";
-import SparklesText from "./ui/sparkles-text";
-import { FlipWords } from "./ui/flip-words";
+import "@/assets/css/tomorrow.css";
+import Meteors from "@/components/ui/meteors";
+import PortfolioPage from "@/pages/About/About";
+import SparklesText from "@/components/ui/sparkles-text";
+import { FlipWords } from "@/components/ui/flip-words";
 
-// AnimatedGrid Component
-const AnimatedGrid = () => {
+// Grid Background - Replacing the HexagonBackground
+const GridBackground = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="relative w-full h-full">
-        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]">
-          <div className="absolute inset-0 grid grid-cols-[repeat(40,1fr)] opacity-20">
-            {[...Array(40)].map((_, i) => (
-              <div
-                key={`v-${i}`}
-                className="relative h-full w-full border-r border-blue-500/10"
-                style={{
-                  animation: `gridPulse ${
-                    2 + Math.random() * 2
-                  }s ease-in-out infinite`,
-                  animationDelay: `${Math.random() * 2}s`,
-                }}
-              />
-            ))}
-          </div>
-          <div className="absolute inset-0 grid grid-rows-[repeat(40,1fr)] opacity-20">
-            {[...Array(40)].map((_, i) => (
-              <div
-                key={`h-${i}`}
-                className="relative w-full h-full border-b border-blue-500/10"
-                style={{
-                  animation: `gridPulse ${
-                    2 + Math.random() * 2
-                  }s ease-in-out infinite`,
-                  animationDelay: `${Math.random() * 2}s`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+      <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black)]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          height="100%"
+          className="absolute inset-0"
+        >
+          <pattern
+            id="grid"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
+            <rect
+              width="40"
+              height="40"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.5"
+              className="opacity-40 animate-gridPulse"
+            />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
       </div>
     </div>
   );
@@ -81,16 +74,40 @@ const profile = {
 
   useEffect(() => {
     Prism.highlightAll();
+
+    // Add CSS animation for grid and dots
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes gridPulse {
+        0%, 100% { opacity: 0.1; }
+        50% { opacity: 0.3; }
+      }
+      
+      @keyframes dotPulse {
+        0%, 100% { opacity: 0.2; transform: scale(0.8); }
+        50% { opacity: 0.5; transform: scale(1.2); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
   }, [code]);
 
   return (
     <>
-      <main className="pt-20 lg:pt-[0rem] bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90 text-white min-h-screen">
+      <main className="pt-20 lg:pt-[0rem] bg-[#020617] text-white min-h-screen">
         <section className="hero min-h-screen flex items-center relative px-4 sm:px-6 lg:px-8">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/50"></div>
+          <div className="absolute inset-0"></div>
 
-          {/* Animated Grid Background */}
-          <AnimatedGrid />
+          {/* Choose one of these background options */}
+          <GridBackground />
+
+          {/* Or keep the original backgrounds if you prefer */}
+          {/* <HexagonBackground /> */}
+          {/* <AnimatedGrid /> */}
+          {/* <DotBackground /> */}
 
           {/* Meteors Effect */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -221,11 +238,10 @@ const profile = {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce flex flex-col items-center gap-2">
           <span className="text-gray-400 text-sm flex items-center gap-2">
             <i className="fas fa-mouse text-blue-400"></i>
-            Scroll to explore
+            About me
           </span>
           <i className="fas fa-chevron-down text-blue-400 text-xl"></i>
         </div>
-
         <PortfolioPage />
       </main>
     </>
